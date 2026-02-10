@@ -1,11 +1,9 @@
 package org.example.taskmanager.models;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Task {
-    @NotNull
     private Long id;
     @NotBlank(message = "Key is required")
     @Size(min = 3, max = 7, message = "Key must be between 3 and 7 characters")

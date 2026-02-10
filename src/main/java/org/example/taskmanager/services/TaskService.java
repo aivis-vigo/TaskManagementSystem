@@ -39,7 +39,5 @@ public class TaskService {
     private void validate(Task task) {
         if (task.getKey() == null || task.getKey().isBlank())
             throw new IllegalArgumentException("Task key cannot be empty");
-        if (task.getSummary() == null || task.getSummary().isBlank())
-            throw new IllegalArgumentException("Task summary cannot be empty");
     }
 }
