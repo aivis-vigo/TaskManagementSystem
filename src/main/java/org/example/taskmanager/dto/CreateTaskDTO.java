@@ -1,7 +1,11 @@
 package org.example.taskmanager.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.example.taskmanager.models.TaskPriority;
+import org.example.taskmanager.models.TaskStatus;
+import org.example.taskmanager.models.TaskType;
 
 public class CreateTaskDTO {
 
@@ -11,24 +15,28 @@ public class CreateTaskDTO {
     @NotBlank(message = "Summary is required")
     private String summary;
     private String description;
-    @NotBlank(message = "Type is required")
-    private String type;
-    @NotBlank(message = "Priority is required")
-    private String priority;
+    @NotNull(message = "Type is required")
+    private TaskType type;
+    @NotNull(message = "Status is required")
+    private TaskStatus status;
+    @NotNull(message = "Priority is required")
+    private TaskPriority priority;
     private String assignee;
 
     public String getKey() { return key; }
     public String getSummary() { return summary; }
     public String getDescription() { return description; }
-    public String getType() { return type; }
-    public String getPriority() { return priority; }
+    public TaskType getType() { return type; }
+    public TaskStatus getStatus() { return status; }
+    public TaskPriority getPriority() { return priority; }
     public String getAssignee() { return assignee; }
 
     public void setKey(String key) { this.key = key; }
     public void setSummary(String summary) { this.summary = summary; }
     public void setDescription(String description) { this.description = description; }
-    public void setType(String type) { this.type = type; }
-    public void setPriority(String priority) { this.priority = priority; }
+    public void setType(TaskType type) { this.type = type; }
+    public void setStatus(TaskStatus status) { this.status = status; }
+    public void setPriority(TaskPriority priority) { this.priority = priority; }
     public void setAssignee(String assignee) { this.assignee = assignee; }
 
 }

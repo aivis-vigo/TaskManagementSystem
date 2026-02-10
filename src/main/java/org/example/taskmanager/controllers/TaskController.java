@@ -34,8 +34,11 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String createTask(@Valid @ModelAttribute("task") CreateTaskDTO task, BindingResult bindingResult) {
+    public String createTask(@Valid @ModelAttribute("task") CreateTaskDTO task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("types", TaskType.values());
+            model.addAttribute("statuses", TaskStatus.values());
+            model.addAttribute("priorities", TaskPriority.values());
             return "tasks/create";
         }
         taskService.createTask(task);

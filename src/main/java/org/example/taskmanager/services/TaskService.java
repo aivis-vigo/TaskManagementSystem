@@ -2,6 +2,7 @@ package org.example.taskmanager.services;
 
 import org.example.taskmanager.dto.CreateTaskDTO;
 import org.example.taskmanager.models.Task;
+import org.example.taskmanager.models.TaskStatus;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class TaskService {
 
     public Task createTask(CreateTaskDTO task) {
 //        validate(task);
-        Task newTask = new Task(task.getKey(), task.getSummary(), task.getType(), "TODO", task.getPriority(), task.getAssignee());
+        Task newTask = new Task(task.getKey(), task.getSummary(), task.getType(), TaskStatus.TODO, task.getPriority(), task.getAssignee());
         return taskRepository.save(newTask);
     }
 
