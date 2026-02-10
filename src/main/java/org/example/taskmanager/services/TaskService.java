@@ -24,14 +24,22 @@ public class TaskService {
     }
 
     public Task createTask(Task task) {
+        validate(task);
         return taskRepository.save(task);
     }
 
     public Task updateTask(Task task) {
+        validate(task);
         return taskRepository.save(task);
     }
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
+    }
+    private void validate(Task task) {
+        if (task.getKey() == null || task.getKey().isBlank())
+            throw new IllegalArgumentException("Task key cannot be empty");
+        if (task.getSummary() == null || task.getSummary().isBlank())
+            throw new IllegalArgumentException("Task summary cannot be empty");
     }
 }
