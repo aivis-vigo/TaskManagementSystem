@@ -29,7 +29,10 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/tasks/delete/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
-        .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+        .formLogin(form -> form
+                .defaultSuccessUrl("/tasks", true)
+                .permitAll()
+        )
         .logout(LogoutConfigurer::permitAll)
         .exceptionHandling(e -> e.accessDeniedPage("/error/403"));
 
