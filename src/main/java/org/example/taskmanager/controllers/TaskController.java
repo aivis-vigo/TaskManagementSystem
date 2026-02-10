@@ -30,6 +30,9 @@ public class TaskController {
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
         model.addAttribute("task", new CreateTaskDTO());
+        model.addAttribute("types", TaskType.values());
+        model.addAttribute("statuses", TaskStatus.values());
+        model.addAttribute("priorities", TaskPriority.values());
         return "tasks/create";
     }
 
