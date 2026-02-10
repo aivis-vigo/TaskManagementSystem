@@ -17,27 +17,32 @@
     <label>Description:</label>
     <textarea th:field="*{description}"></textarea><br><br>
 
-    <label>Type:</label>
+    <label>Task Type:</label>
     <select th:field="*{type}">
-        <option value="TASK">TASK</option>
-        <option value="BUG">BUG</option>
-        <option value="STORY">STORY</option>
-    </select><br><br>
+        <option th:each="type : ${types}"
+                th:value="${type}"
+                th:text="${type}">
+        </option>
+    </select>
+    <br><br>
 
     <label>Status:</label>
     <select th:field="*{status}">
-        <option value="TODO">TODO</option>
-        <option value="IN_PROGRESS">IN_PROGRESS</option>
-        <option value="DONE">DONE</option>
-    </select><br><br>
+        <option th:each="status : ${statuses}"
+                th:value="${status}"
+                th:text="${status}">
+        </option>
+    </select>
+    <br><br>
 
     <label>Priority:</label>
     <select th:field="*{priority}">
-        <option value="LOW">LOW</option>
-        <option value="MEDIUM">MEDIUM</option>
-        <option value="HIGH">HIGH</option>
-        <option value="CRITICAL">CRITICAL</option>
-    </select><br><br>
+        <option th:each="priority : ${priorities}"
+                th:value="${priority}"
+                th:text="${priority}">
+        </option>
+    </select>
+    <br><br>
 
     <label>Assignee:</label>
     <input type="text" th:field="*{assignee}" /><br><br>

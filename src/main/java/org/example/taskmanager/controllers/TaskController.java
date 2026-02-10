@@ -1,6 +1,9 @@
 package org.example.taskmanager.controllers;
 
 import org.example.taskmanager.models.Task;
+import org.example.taskmanager.models.TaskPriority;
+import org.example.taskmanager.models.TaskStatus;
+import org.example.taskmanager.models.TaskType;
 import org.example.taskmanager.services.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +26,10 @@ public class TaskController {
 
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("task", new Task("", "", "TASK", "TODO", "MEDIUM", ""));
+        model.addAttribute("task", new Task("", "", TaskType.TASK, TaskStatus.TODO, TaskPriority.MEDIUM, ""));
+        model.addAttribute("types", TaskType.values());
+        model.addAttribute("statuses", TaskStatus.values());
+        model.addAttribute("priorities", TaskPriority.values());
         return "tasks/create";
     }
 
