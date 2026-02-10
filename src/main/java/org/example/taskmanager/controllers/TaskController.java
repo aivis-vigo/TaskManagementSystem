@@ -1,9 +1,11 @@
 package org.example.taskmanager.controllers;
 
+import jakarta.validation.Valid;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.services.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -23,12 +25,15 @@ public class TaskController {
 
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("task", new Task( "", "", "TASK", "TODO", "MEDIUM", ""));
+        model.addAttribute("task", new Task("", "", "TASK", "TODO", "MEDIUM", ""));
         return "tasks/create";
     }
 
     @PostMapping("/create")
-    public String createTask(@ModelAttribute Task task) {
+    public String createTask(@Valid Task task, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "tasks/create";
+        }
         taskService.createTask(task);
         return "redirect:/tasks";
     }
