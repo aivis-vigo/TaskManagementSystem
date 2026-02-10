@@ -23,7 +23,7 @@ public class TaskController {
 
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("task", new Task("", "", "TASK", "TODO", "MEDIUM", ""));
+        model.addAttribute("task", new Task( "", "", "TASK", "TODO", "MEDIUM", ""));
         return "tasks/create";
     }
 
