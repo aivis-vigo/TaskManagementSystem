@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Task</title>
+</head>
+<body>
+
+<h2>Create New Task</h2>
+
+<form action="/tasks/create" th:object="${task}" method="post">
+    <label>Key:</label>
+    <input type="text" th:field="*{key}" /><br><br>
+
+    <label>Summary:</label>
+    <input type="text" th:field="*{summary}" /><br><br>
+
+    <label>Description:</label>
+    <textarea th:field="*{description}"></textarea><br><br>
+
+    <label>Type:</label>
+    <select th:field="*{type}">
+        <option value="TASK">TASK</option>
+        <option value="BUG">BUG</option>
+        <option value="STORY">STORY</option>
+    </select><br><br>
+
+    <label>Status:</label>
+    <select th:field="*{status}">
+        <option value="TODO">TODO</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+        <option value="DONE">DONE</option>
+    </select><br><br>
+
+    <label>Priority:</label>
+    <select th:field="*{priority}">
+        <option value="LOW">LOW</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HIGH">HIGH</option>
+        <option value="CRITICAL">CRITICAL</option>
+    </select><br><br>
+
+    <label>Assignee:</label>
+    <input type="text" th:field="*{assignee}" /><br><br>
+
+    <button type="submit">Create Task</button>
+</form>
+
+<a href="/tasks">Back to Task List</a>
+
+</body>
+</html>
