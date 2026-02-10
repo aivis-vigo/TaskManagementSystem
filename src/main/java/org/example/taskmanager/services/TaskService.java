@@ -1,5 +1,6 @@
 package org.example.taskmanager.services;
 
+import org.example.taskmanager.dto.CreateTaskDTO;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,22 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
-    public Task createTask(Task task) {
-        validate(task);
-        return taskRepository.save(task);
+    public Task createTask(CreateTaskDTO task) {
+//        validate(task);
+        Task newTask = new Task(task.getKey(), task.getSummary(), task.getType(), "TODO", task.getPriority(), task.getAssignee());
+        return taskRepository.save(newTask);
     }
 
     public Task updateTask(Task task) {
-        validate(task);
+//        validate(task);
         return taskRepository.save(task);
     }
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
-    private void validate(Task task) {
-        if (task.getKey() == null || task.getKey().isBlank())
-            throw new IllegalArgumentException("Task key cannot be empty");
-    }
+//    private void validate(Task task) {
+//        if (task.getKey() == null || task.getKey().isBlank())
+//            throw new IllegalArgumentException("Task key cannot be empty");
+//    }
 }

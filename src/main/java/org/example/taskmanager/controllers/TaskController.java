@@ -1,6 +1,7 @@
 package org.example.taskmanager.controllers;
 
 import jakarta.validation.Valid;
+import org.example.taskmanager.dto.CreateTaskDTO;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.services.TaskService;
 import org.springframework.stereotype.Controller;
@@ -25,12 +26,12 @@ public class TaskController {
 
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("task", new Task("", "", "", "", "", ""));
+        model.addAttribute("task", new CreateTaskDTO());
         return "tasks/create";
     }
 
     @PostMapping("/create")
-    public String createTask(@Valid Task task, BindingResult bindingResult) {
+    public String createTask(@Valid @ModelAttribute("task") CreateTaskDTO task, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "tasks/create";
         }
