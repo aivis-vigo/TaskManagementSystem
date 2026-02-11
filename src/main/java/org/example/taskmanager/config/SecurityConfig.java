@@ -3,8 +3,6 @@ package org.example.taskmanager.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,20 +18,25 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/error/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/tasks").hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/tasks/create/new").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/tasks/create").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/tasks/create").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/tasks/edit/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/tasks/delete/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                        .requestMatchers("/login", "/error/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/tasks").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/tasks/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
-        .formLogin(form -> form
+        .formLogin(login -> login
+                .loginPage("/login")
                 .defaultSuccessUrl("/tasks", true)
                 .permitAll()
         )
-        .logout(LogoutConfigurer::permitAll)
+        .rememberMe(remember -> remember
+                .key("task-key")
+                .tokenValiditySeconds(600)
+                .userDetailsService(userDetailsService(encoder()))
+        )
+        .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .deleteCookies("JSESSIONID", "remember-me")
+                .permitAll())
         .exceptionHandling(e -> e.accessDeniedPage("/error/403"));
 
         return http.build();
