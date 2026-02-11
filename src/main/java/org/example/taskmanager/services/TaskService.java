@@ -4,6 +4,7 @@ import org.example.taskmanager.dto.TaskDTO;
 import org.example.taskmanager.dto.TaskDTOMapper;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.repositories.TaskRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class TaskService {
         this.taskDTOMapper = taskDTOMapper;
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public List<TaskDTO> getAllTasks() {
         return taskRepository.findAll()
                 .stream()
@@ -26,20 +28,24 @@ public class TaskService {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Optional<TaskDTO> getTaskById(Long id) {
         return taskRepository.findById(id)
                 .map(taskDTOMapper);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void createTask(TaskDTO task) {
         Task newTask = taskDTOMapper.toEntity(task);
         taskRepository.save(newTask);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateTask(TaskDTO task) {
         taskRepository.save(taskDTOMapper.toEntity(task));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
