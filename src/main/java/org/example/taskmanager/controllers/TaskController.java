@@ -51,7 +51,7 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String createTask(@Valid @ModelAttribute("task") CreateTaskDTO task, BindingResult bindingResult, Model model) {
+    public String createTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("types", TaskType.values());
             model.addAttribute("statuses", TaskStatus.values());
@@ -75,7 +75,7 @@ public class TaskController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateTask(@PathVariable Long id, @ModelAttribute Task task) {
+    public String updateTask(@PathVariable Long id, @ModelAttribute TaskDTO task) {
         task.setId(id);
         taskService.updateTask(task);
         return "redirect:/tasks";
