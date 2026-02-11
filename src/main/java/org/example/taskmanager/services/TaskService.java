@@ -4,7 +4,6 @@ import org.example.taskmanager.dto.CreateTaskDTO;
 import org.example.taskmanager.dto.TaskDTO;
 import org.example.taskmanager.dto.TaskDTOMapper;
 import org.example.taskmanager.models.Task;
-import org.example.taskmanager.models.TaskStatus;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +32,9 @@ public class TaskService {
                 .map(taskDTOMapper);
     }
 
-    public Task createTask(CreateTaskDTO task) {
-        // TODO: mapper from taskDTO to task
-        Task newTask = new Task(task.getKey(), task.getSummary(), task.getType(), TaskStatus.TODO, task.getPriority(), task.getAssignee());
-        return taskRepository.save(newTask);
+    public void createTask(CreateTaskDTO task) {
+        Task newTask = taskDTOMapper.toEntity(task);
+        taskRepository.save(newTask);
     }
 
     public Task updateTask(Task task) {
