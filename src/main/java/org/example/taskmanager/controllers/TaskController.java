@@ -29,6 +29,18 @@ public class TaskController {
         return "tasks/list";
     }
 
+    @GetMapping("/{id}")
+    public String viewTaskById(@PathVariable Long id, Model model) {
+        try {
+            TaskDTO task = taskService.getTaskById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
+            model.addAttribute("task", task);
+            return "tasks/view";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/error/404";
+        }
+    }
+
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
         model.addAttribute("task", new CreateTaskDTO());
@@ -39,7 +51,7 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String createTask(@Valid @ModelAttribute("task") CreateTaskDTO task, BindingResult bindingResult, Model model) {
+    public String createTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("types", TaskType.values());
             model.addAttribute("statuses", TaskStatus.values());
@@ -63,7 +75,13 @@ public class TaskController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateTask(@PathVariable Long id, @ModelAttribute Task task) {
+    public String updateTask(@PathVariable Long id, @Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("types", TaskType.values());
+            model.addAttribute("statuses", TaskStatus.values());
+            model.addAttribute("priorities", TaskPriority.values());
+            return "tasks/edit";
+        }
         task.setId(id);
         taskService.updateTask(task);
         return "redirect:/tasks";
