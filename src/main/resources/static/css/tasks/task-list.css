@@ -46,6 +46,15 @@ h2 {
     font-weight: 500;
 }
 
+.task-summary a {
+    color: #333;
+    text-decoration: none;
+}
+
+.task-summary a:hover {
+    text-decoration: underline;
+}
+
 .card-details {
     display: flex;
     gap: 0.5rem;

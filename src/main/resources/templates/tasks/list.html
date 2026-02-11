@@ -20,7 +20,9 @@
                 <span class="task-key" th:text="${task.key}"></span>
                 <span class="task-priority" th:text="${task.priority}"></span>
             </div>
-            <h3 class="task-summary" th:text="${task.summary}"></h3>
+            <h3 class="task-summary">
+                <a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.summary}"></a>
+            </h3>
             <div class="card-details">
                 <span class="task-type" th:text="${task.type}"></span>
                 <span class="task-status" th:text="${task.status}"></span>

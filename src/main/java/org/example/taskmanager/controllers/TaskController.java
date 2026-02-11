@@ -29,6 +29,18 @@ public class TaskController {
         return "tasks/list";
     }
 
+    @GetMapping("/{id}")
+    public String viewTaskById(@PathVariable Long id, Model model) {
+        try {
+            TaskDTO task = taskService.getTaskById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
+            model.addAttribute("task", task);
+            return "tasks/view";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/error/404";
+        }
+    }
+
     @GetMapping("/create/new")
     public String showCreateForm(Model model) {
         model.addAttribute("task", new CreateTaskDTO());
