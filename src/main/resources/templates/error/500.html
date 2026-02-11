@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Internal Server Error</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        h1 { color: #c33; }
+        a { text-decoration: none; color: #333; margin-top: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+<h1>500 - Internal Server Error</h1>
+<p>Something went wrong on the server.</p>
+
+<a th:href="@{/tasks}">Back to Task List</a>
+
+</body>
+</html>

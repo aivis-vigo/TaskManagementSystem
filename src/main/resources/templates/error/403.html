@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Denied</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        h1 { color: #c33; }
+        a { text-decoration: none; color: #333; margin-top: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+<h1>403 - Access Denied</h1>
+<p>You do not have permission to access this page.</p>
+
+<a th:href="@{/tasks}">Back to Task List</a>
+
+</body>
+</html>
