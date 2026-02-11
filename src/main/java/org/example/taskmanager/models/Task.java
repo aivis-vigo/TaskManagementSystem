@@ -1,5 +1,14 @@
 package org.example.taskmanager.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Task {
     private Long id;
     private String key;           // e.g. "PROJ-123"
@@ -19,30 +28,4 @@ public class Task {
         this.assignee = assignee;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getKey() { return key; }
-    public void setKey(String key) { this.key = key; }
-
-    public String getSummary() { return summary; }
-    public void setSummary(String summary) { this.summary = summary; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public TaskType getType() {
-        return type;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public TaskPriority getPriority() {
-        return priority;
-    }
-
-    public String getAssignee() { return assignee; }
-    public void setAssignee(String assignee) { this.assignee = assignee; }
 }
