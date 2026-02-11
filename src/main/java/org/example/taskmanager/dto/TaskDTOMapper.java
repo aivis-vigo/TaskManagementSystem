@@ -27,6 +27,7 @@ public class TaskDTOMapper implements Function<Task, TaskDTO> {
         return new Task(
                 createTaskDTO.getKey(),
                 createTaskDTO.getSummary(),
+                createTaskDTO.getDescription(),
                 createTaskDTO.getType(),
                 createTaskDTO.getStatus(),
                 createTaskDTO.getPriority(),

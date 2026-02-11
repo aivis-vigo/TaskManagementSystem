@@ -10,9 +10,10 @@ public class Task {
     private TaskPriority priority;      // LOW, MEDIUM, HIGH, CRITICAL
     private String assignee;
 
-    public Task(String key, String summary, TaskType type, TaskStatus status, TaskPriority priority, String assignee) {
+    public Task(String key, String summary, String description, TaskType type, TaskStatus status, TaskPriority priority, String assignee) {
         this.key = key;
         this.summary = summary;
+        this.description = description;
         this.type = type;
         this.status = status;
         this.priority = priority;
