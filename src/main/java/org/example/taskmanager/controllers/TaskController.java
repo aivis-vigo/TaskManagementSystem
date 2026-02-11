@@ -75,7 +75,13 @@ public class TaskController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateTask(@PathVariable Long id, @ModelAttribute TaskDTO task) {
+    public String updateTask(@PathVariable Long id, @Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("types", TaskType.values());
+            model.addAttribute("statuses", TaskStatus.values());
+            model.addAttribute("priorities", TaskPriority.values());
+            return "tasks/edit";
+        }
         task.setId(id);
         taskService.updateTask(task);
         return "redirect:/tasks";

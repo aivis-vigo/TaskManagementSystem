@@ -1,5 +1,8 @@
 package org.example.taskmanager.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.example.taskmanager.models.TaskPriority;
 import org.example.taskmanager.models.TaskStatus;
 import org.example.taskmanager.models.TaskType;
@@ -7,7 +10,10 @@ import org.example.taskmanager.models.TaskType;
 public class TaskDTO {
 
     private Long id;
+    @NotBlank(message = "Key is required")
+    @Size(min = 3, max = 7, message = "Key must be between 3 and 7 characters")
     private String key;
+    @NotBlank(message = "Summary is required")
     private String summary;
     private String description;
     private TaskType type;
