@@ -22,6 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/error/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/tasks").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/tasks/**").hasRole("ADMIN")
+                        .requestMatchers("/h2-console/**").permitAll() // allow accessing H2-console
                         .anyRequest().authenticated()
                 )
         .formLogin(login -> login
@@ -38,8 +39,14 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .permitAll())
-        .exceptionHandling(e -> e.accessDeniedPage("/error/403"));
-
+        .exceptionHandling(e -> e.accessDeniedPage("/error/403"))
+        //allow H2-console
+        .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/h2-console/**")
+        )
+        .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+        );
         return http.build();
     }
 
