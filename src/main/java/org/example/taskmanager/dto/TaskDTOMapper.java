@@ -23,15 +23,17 @@ public class TaskDTOMapper implements Function<Task, TaskDTO> {
         );
     }
 
-    public Task toEntity(CreateTaskDTO createTaskDTO) {
-        return new Task(
-                createTaskDTO.getKey(),
-                createTaskDTO.getSummary(),
-                createTaskDTO.getType(),
-                createTaskDTO.getStatus(),
-                createTaskDTO.getPriority(),
-                createTaskDTO.getAssignee()
-        );
+    public Task toEntity(TaskDTO taskDTO) {
+        Task task = new Task();
+        task.setId(taskDTO.getId());
+        task.setKey(taskDTO.getKey());
+        task.setSummary(taskDTO.getSummary());
+        task.setDescription(taskDTO.getDescription());
+        task.setType(taskDTO.getType());
+        task.setStatus(taskDTO.getStatus());
+        task.setPriority(taskDTO.getPriority());
+        task.setAssignee(taskDTO.getAssignee());
+        return task;
     }
 
 }

@@ -2,60 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Task</title>
+    <link rel="stylesheet" th:href="@{/css/tasks/create.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
+<main>
+    <h2>Create Task</h2>
+    <form th:action="@{/tasks/create}" th:object="${task}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-<h2>Create New Task</h2>
+        <div class="form-group">
+            <label for="key">Key</label>
+            <input type="text" id="key" th:field="*{key}"/>
+            <div class="field-error" th:if="${#fields.hasErrors('key')}" th:errors="*{key}"></div>
+        </div>
 
-<form th:action="@{/tasks/create}" th:object="${task}" method="post">
+        <div class="form-group">
+            <label for="summary">Summary</label>
+            <input type="text" id="summary" th:field="*{summary}"/>
+            <div class="field-error" th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></div>
+        </div>
 
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
 
-    <label>Key:</label>
-    <input type="text" th:field="*{key}" />
-    <div th:if="${#fields.hasErrors('key')}" th:errors="*{key}" style="color:red"></div><br><br>
+        <div class="form-group">
+            <label for="type">Task Type</label>
+            <select id="type" th:field="*{type}">
+                <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+            </select>
+        </div>
 
-    <label>Summary:</label>
-    <input type="text" th:field="*{summary}" />
-    <div th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}" style="color:red"></div><br><br>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+            </select>
+        </div>
 
-    <label>Description:</label>
-    <textarea th:field="*{description}"></textarea><br><br>
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select id="priority" th:field="*{priority}">
+                <option th:each="priority : ${priorities}" th:value="${priority}" th:text="${priority}"></option>
+            </select>
+        </div>
 
-    <label>Task Type:</label>
-    <select th:field="*{type}">
-        <option th:each="type : ${types}"
-                th:value="${type}"
-                th:text="${type}">
-        </option>
-    </select>
-    <br><br>
+        <div class="form-group">
+            <label for="assignee">Assignee</label>
+            <input type="text" id="assignee" th:field="*{assignee}"/>
+        </div>
 
-    <label>Status:</label>
-    <select th:field="*{status}">
-        <option th:each="status : ${statuses}"
-                th:value="${status}"
-                th:text="${status}">
-        </option>
-    </select>
-    <br><br>
-
-    <label>Priority:</label>
-    <select th:field="*{priority}">
-        <option th:each="priority : ${priorities}"
-                th:value="${priority}"
-                th:text="${priority}">
-        </option>
-    </select>
-    <br><br>
-
-    <label>Assignee:</label>
-    <input type="text" th:field="*{assignee}" /><br><br>
-
-    <button type="submit">Create Task</button>
-</form>
-
-<a href="/tasks">Back to Task List</a>
-
+        <div class="form-actions">
+            <button type="submit" class="btn">Create Task</button>
+            <a class="btn btn-secondary" th:href="@{/tasks}">Cancel</a>
+        </div>
+    </form>
+</main>
 </body>
 </html>
