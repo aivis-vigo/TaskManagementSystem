@@ -2,6 +2,7 @@ package org.example.taskmanager.controllers;
 
 import jakarta.validation.Valid;
 import org.example.taskmanager.dto.CreateTaskDTO;
+import org.example.taskmanager.dto.TaskDTO;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.models.TaskPriority;
 import org.example.taskmanager.models.TaskStatus;
