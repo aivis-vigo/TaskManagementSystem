@@ -13,7 +13,7 @@
     <h2>Currently logged in as: <b><span sec:authentication="name"></span></b></h2>
     <h2>Project Tickets</h2>
 
-    <a class="btn" th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/tasks/create/new}">+ New Task</a>
+    <a class="btn" th:if="${#gi.expression('hasRole(''ADMIN'')')}" th:href="@{/tasks/create/new}">+ New Task</a>
 
     <div class="task-grid">
         <div class="task-card" th:each="task : ${tasks}">
