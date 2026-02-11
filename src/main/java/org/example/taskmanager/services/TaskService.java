@@ -28,26 +28,23 @@ public class TaskService {
                 .toList();
     }
 
-    public Optional<Task> getTaskById(Long id) {
-        return taskRepository.findById(id);
+    public Optional<TaskDTO> getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .map(taskDTOMapper);
     }
 
     public Task createTask(CreateTaskDTO task) {
-//        validate(task);
+        // TODO: mapper from taskDTO to task
         Task newTask = new Task(task.getKey(), task.getSummary(), task.getType(), TaskStatus.TODO, task.getPriority(), task.getAssignee());
         return taskRepository.save(newTask);
     }
 
     public Task updateTask(Task task) {
-//        validate(task);
         return taskRepository.save(task);
     }
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
-//    private void validate(Task task) {
-//        if (task.getKey() == null || task.getKey().isBlank())
-//            throw new IllegalArgumentException("Task key cannot be empty");
-//    }
+
 }
