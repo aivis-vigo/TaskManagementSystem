@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Task List</title>
     <link rel="stylesheet" th:href="@{/css/tasks/task-list.css}"/>
@@ -10,6 +10,7 @@
 </head>
 <body>
 <main>
+    <h2>Currently logged in as: <b><span sec:authentication="name"></span></b></h2>
     <h2>Project Tickets</h2>
 
     <a class="btn" th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/tasks/create/new}">+ New Task</a>
