@@ -2,6 +2,7 @@ package org.example.taskmanager.controllers;
 
 import jakarta.validation.Valid;
 import org.example.taskmanager.dto.CreateTaskDTO;
+import org.example.taskmanager.dto.TaskDTO;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.models.TaskPriority;
 import org.example.taskmanager.models.TaskStatus;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("/tasks")
@@ -50,9 +52,14 @@ public class TaskController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Task task = taskService.getTaskById(id).orElseThrow();
-        model.addAttribute("task", task);
-        return "tasks/edit";
+        try {
+            TaskDTO task = taskService.getTaskById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
+            model.addAttribute("task", task);
+            return "tasks/edit";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/error/404";
+        }
     }
 
     @PostMapping("/edit/{id}")
