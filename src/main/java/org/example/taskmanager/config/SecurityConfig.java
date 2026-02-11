@@ -2,6 +2,7 @@ package org.example.taskmanager.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -37,7 +39,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .permitAll())
-        .exceptionHandling(e -> e.accessDeniedPage("/error/403"));
+        .exceptionHandling(e -> e
+                .accessDeniedPage("/error/403"));
 
         return http.build();
     }
