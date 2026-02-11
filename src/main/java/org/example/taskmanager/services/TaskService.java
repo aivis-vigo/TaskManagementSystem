@@ -1,6 +1,5 @@
 package org.example.taskmanager.services;
 
-import org.example.taskmanager.dto.CreateTaskDTO;
 import org.example.taskmanager.dto.TaskDTO;
 import org.example.taskmanager.dto.TaskDTOMapper;
 import org.example.taskmanager.models.Task;
@@ -32,13 +31,13 @@ public class TaskService {
                 .map(taskDTOMapper);
     }
 
-    public void createTask(CreateTaskDTO task) {
+    public void createTask(TaskDTO task) {
         Task newTask = taskDTOMapper.toEntity(task);
         taskRepository.save(newTask);
     }
 
-    public Task updateTask(Task task) {
-        return taskRepository.save(task);
+    public void updateTask(TaskDTO task) {
+        taskRepository.save(taskDTOMapper.toEntity(task));
     }
 
     public void deleteTask(Long id) {
