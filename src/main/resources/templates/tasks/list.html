@@ -7,7 +7,7 @@
 
 <h2>Task List</h2>
 
-
+<!-- Add New Task for ADMIN -->
 <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/tasks/create/new}">Add New Task</a>
 
 <table border="1" cellpadding="5">
@@ -40,6 +40,16 @@
     </tr>
     </tbody>
 </table>
+
+<!-- Logout -->
+<div style="margin-top: 30px;">
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit" style="padding: 8px 15px; cursor: pointer;">
+            Logout
+        </button>
+    </form>
+</div>
 
 </body>
 </html>
