@@ -1,5 +1,6 @@
 package org.example.taskmanager.config;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -20,8 +21,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/error", "/error/**").permitAll()
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+
+                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/login", "/error/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/tasks").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/tasks/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll() // allow accessing H2-console
@@ -41,7 +45,10 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .permitAll())
-        .exceptionHandling(e -> e.accessDeniedPage("/error/403"))
+        .exceptionHandling(e -> e
+                .accessDeniedPage("/error/403")
+        )
+        .requestCache(cache -> cache.disable())
         //allow H2-console
         .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/h2-console/**")
